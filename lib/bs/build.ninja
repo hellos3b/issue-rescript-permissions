@@ -1,0 +1,13 @@
+rescript = 1
+rule astj
+  command = "C:\Users\sebhe\Code\issue-rescript-permissions\node_modules\rescript\win32\bsc.exe"  -bs-v 10.0.0  -absname -bs-ast -o $out $i
+o src\HelloWorld.ast : astj ..\..\src\HelloWorld.res
+rule deps
+  command = "C:\Users\sebhe\Code\issue-rescript-permissions\node_modules\rescript\win32\bsb_helper.exe" -hash 96cd17fdb4f11ce7a51b2a346f5f0d8d $in
+  restat = 1
+o src\HelloWorld.d : deps src\HelloWorld.ast
+rule mij
+  command = "C:\Users\sebhe\Code\issue-rescript-permissions\node_modules\rescript\win32\bsc.exe" -I src   -bs-package-name your-project-name -bs-package-output es6:$in_d:.bs.js $i
+  dyndep = 1
+  restat = 1
+o src\HelloWorld.cmj src\HelloWorld.cmi ..\..\src\HelloWorld.bs.js : mij src\HelloWorld.ast

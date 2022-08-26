@@ -1,0 +1,10 @@
+rescript = 1
+rule cp
+  command = cmd.exe /C copy /Y $i $out >NUL
+rule touch
+ command = cmd.exe /C type nul >>$out & copy $out+,, >NUL
+o HelloWorld.cmi : cp ..\bs\src\HelloWorld.cmi
+o HelloWorld.cmj : cp ..\bs\src\HelloWorld.cmj
+o HelloWorld.cmt : cp ..\bs\src\HelloWorld.cmt
+o HelloWorld.res : cp ..\..\src\HelloWorld.res
+build install.stamp : touch HelloWorld.cmi HelloWorld.cmj 
